@@ -2,13 +2,12 @@
 #include <Adafruit_GFX.h>
 #include <SH1106.h>
 #include <dht11.h>
+#include  <virtuabotixRTC.h>
 
 #define DHT11_PIN 5
 dht11 DHT11;
 
-int hour;
-int minute;
-int second;
+virtuabotixRTC myRTC(2, 4, 3);
 
 // If using software SPI (the default case):
 #define OLED_MOSI   10
@@ -54,6 +53,8 @@ void setup(){
 
   Serial.begin(9600);
   
+  //myRTC.setDS1302Time(00, 50, 9, 7, 23, 3, 2018);//ss/min/hh/week/day/month/year
+  
   display.clearDisplay();
   display.setTextSize(1.35);
   display.setTextColor(WHITE);
@@ -67,16 +68,38 @@ void setup(){
 }
 
 void loop() {
+	myRTC.updateTime();
+	DHT11.read(DHT11_PIN);
+	display.setCursor(0,0);
+	display.setTextSize(2.0);
+	display.setTextColor(WHITE);
 
-  DHT11.read(DHT11_PIN);
-  display.setCursor(0,0);
-  display.setTextSize(2.0);
-  display.setTextColor(WHITE);
-  display.print(DHT11.temperature);
-  display.print("oC");
-  display.print(" ");
-  display.print(DHT11.humidity);
-  display.print("%");
+	display.print(" ");
+	display.print(myRTC.year);
+	display.print("-");
+    display.print(myRTC.month);
+	display.print("-");
+    display.println(myRTC.dayofmonth);
+	display.print(" ");
+    display.setTextSize(1.0);
+	display.println("");
+	display.setTextSize(2.0);
+	display.print(" ");
+    display.print(myRTC.hours);
+	display.print(":");
+    display.print(myRTC.minutes);
+	display.print(":");
+	display.println(myRTC.seconds);
+	display.print(" ");
+    display.setTextSize(1.0);
+	display.println("");
+	display.setTextSize(2.0);
+	display.print(" ");
+    display.print(DHT11.temperature);
+	display.print("oC");
+	display.print(" ");
+    display.print(DHT11.humidity);
+	display.println("%");
     /*
     second=Clock.getSecond();
     minute=Clock.getMinute();
