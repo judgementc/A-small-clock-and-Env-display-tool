@@ -84,12 +84,12 @@ void loop() {
     display.setTextSize(1.0);
 	display.println("");
 	display.setTextSize(2.0);
-	display.print(" ");
+	display.print("  ");
     display.print(myRTC.hours);
 	display.print(":");
-    display.print(myRTC.minutes);
-	display.print(":");
-	display.println(myRTC.seconds);
+    display.println(myRTC.minutes);
+	//display.print(":");
+	//display.println(myRTC.seconds);
 	display.print(" ");
     display.setTextSize(1.0);
 	display.println("");
