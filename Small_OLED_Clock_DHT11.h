@@ -84,7 +84,7 @@ void loop() {
     display.setTextSize(1.0);
 	display.println("");
 	display.setTextSize(2.0);
-	display.print("  ");
+	display.print("   ");
     display.print(myRTC.hours);
 	display.print(":");
     display.println(myRTC.minutes);
